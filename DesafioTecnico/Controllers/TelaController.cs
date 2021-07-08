@@ -22,7 +22,7 @@ namespace DesafioTecnico.Controllers
         // GET: Tela
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Documentos.ToListAsync());
+            return View(await _context.Documentos.OrderBy(c => c.Titulo).AsNoTracking().ToListAsync()); ;
         }
 
         // GET: Tela/Details/5

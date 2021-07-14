@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - DesafioTecnico</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -24,8 +25,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                       
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tela" asp-action="Index">Tela</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Demo" asp-action="Teste">Demo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Relatorios" asp-action="Index">Relatorios</a>
                         </li>
                     </ul>
                 </div>

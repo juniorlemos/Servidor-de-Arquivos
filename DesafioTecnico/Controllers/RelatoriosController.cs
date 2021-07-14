@@ -7,25 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DesafioTecnico.Data;
 using DesafioTecnico.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace DesafioTecnico.Controllers
 {
-    public class TelaController : Controller
+    public class RelatoriosController : Controller
     {
         private readonly DocumentContext _context;
 
-        public TelaController(DocumentContext context)
+        public RelatoriosController(DocumentContext context)
         {
             _context = context;
         }
 
-        // GET: Tela
+        // GET: Relatorios
         public async Task<IActionResult> Index()
         {
             return View(await _context.Documentos.OrderBy(c => c.Titulo).AsNoTracking().ToListAsync()); ;
         }
 
-        // GET: Tela/Details/5
+        // GET: Relatorios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,29 +45,49 @@ namespace DesafioTecnico.Controllers
             return View(documento);
         }
 
-        // GET: Tela/Create
+        // GET: Relatorios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tela/Create
+        // POST: Relatorios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Titulo,Processo,Categoria,Arquivo")] Documento documento)
+        public async Task<IActionResult> Create([FromForm] int codigo,string titulo ,string processo,
+            string categoria,IFormFile file )
         {
+           
             if (ModelState.IsValid)
             {
+                
+
+                var nome = file.FileName;
+     
+                var documento = new Documento()
+                {
+                    Codigo = codigo,
+                    Titulo = titulo,
+                    Processo = processo,
+                    Categoria = categoria,
+                    NomeArquivo = nome
+
+                };
+                              using (var target = new MemoryStream())
+                {
+                    file.CopyTo(target);
+                    documento.Arquivo = target.ToArray();
+                }
                 _context.Add(documento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(documento);
+            return View();
         }
 
-        // GET: Tela/Edit/5
+        // GET: Relatorios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +103,12 @@ namespace DesafioTecnico.Controllers
             return View(documento);
         }
 
-        // POST: Tela/Edit/5
+        // POST: Relatorios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Titulo,Processo,Categoria,Arquivo")] Documento documento)
+        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Titulo,Processo,Categoria,Arquivo,NomeArquivo")] Documento documento)
         {
             if (id != documento.Codigo)
             {
@@ -116,7 +138,7 @@ namespace DesafioTecnico.Controllers
             return View(documento);
         }
 
-        // GET: Tela/Delete/5
+        // GET: Relatorios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +156,7 @@ namespace DesafioTecnico.Controllers
             return View(documento);
         }
 
-        // POST: Tela/Delete/5
+        // POST: Relatorios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -143,6 +165,30 @@ namespace DesafioTecnico.Controllers
             _context.Documentos.Remove(documento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DownloadDocument([FromForm] int id)
+        {
+           
+                try
+                {
+                
+
+                    var myFile = await _context.Documentos.SingleOrDefaultAsync(x => x.Codigo ==id);
+                    
+                    if (myFile != null)
+                    {
+                        byte[] fileBytes = myFile.Arquivo;
+                        return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, myFile.NomeArquivo);
+                    }
+                }
+                catch
+                {
+                }
+
+
+            return NotFound(); 
         }
 
         private bool DocumentoExists(int id)

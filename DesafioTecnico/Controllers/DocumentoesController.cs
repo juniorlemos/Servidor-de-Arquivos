@@ -20,9 +20,27 @@ namespace DesafioTecnico.Controllers
         }
 
         // GET: Documentoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Documentos.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var students = from s in _context.Documentos select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Codigo);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.Categoria);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.Processo);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.Titulo);
+                    break;
+            }
+            return View(await students.AsNoTracking().ToListAsync());
         }
 
         // GET: Documentoes/Details/5

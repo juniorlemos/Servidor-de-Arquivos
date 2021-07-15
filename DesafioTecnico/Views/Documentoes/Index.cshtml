@@ -1,59 +1,88 @@
-﻿@model IEnumerable<DesafioTecnico.Models.Documento>
+﻿
 
-@{
-    ViewData["Title"] = "Index";
+@model IEnumerable<DesafioTecnico.Models.Documento>
+
+
+@section Styles
+{
+
+    <link href=https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css />
+
 }
 
-<h1>Index</h1>
+<div class="container">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Processo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Arquivo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeArquivo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Processo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Arquivo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeArquivo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
+
+
+    <table id="example" class="table ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Processo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+
+                    <td>
+
+                        <form asp-action="DownloadDocument">
+                            <input type="hidden" iad="id" name="id" value="@item.Codigo">
+                            <input type="submit" class="btn btn-primary" value="Download">
+
+                        </form>
+
+
+
+
+                        <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+</div>
+
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
 }
-    </tbody>
-</table>

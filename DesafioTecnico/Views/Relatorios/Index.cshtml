@@ -1,103 +1,85 @@
 ﻿@model IEnumerable<DesafioTecnico.Models.Documento>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
 @section Styles
 {
-    <link href="~/lib/datatables.net-bs4/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <link href=https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css />
 
 }
 
+<div class="container">
 
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table  class="table" id="Table">
-    <thead>
-        <tr>
+    <table id="example" class="table ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Processo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Processo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Processo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
+                    <td>
 
-            <td>
-                <form method="post" asp-controller="Relatorios" asp-action="DownloadDocument">
-                    <input type="submit" class="btn btn-dark" value="Dowloand" />
-                </form>
+                        <form asp-action="DownloadDocument">
+                            <input type="hidden" iad="id" name="id" value="@item.Codigo">
+                            <input type="submit" class="btn btn-primary" value="Download">
 
-                <form asp-action="DownloadDocument">
-
-                    <label asp-for="@item.Codigo" class="control-label "></label>
-                    <input type="hidden" class="form-control" name="id" />
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </form>
-
-                <form asp-action="DownloadDocument">
-
-                    <input id="id" name="id" class="btn btn-primary" type="submit" value="@item.Codigo" />
-                </form>
-               
-
-                <form asp-action="DownloadDocument">
-                    <input type="hidden" iad="id" name="id" value="@item.Codigo">
-                    <input type="submit" class="btn btn-primary" value="Dowloand">
-                    
-                </form>
+                        </form>
 
 
 
 
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                        <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+</div>
+
 
 @section Scripts
 {
-    <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
-    <script src="~/lib/datatables.net-bs4/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#Table').DataTable();
+            $('#example').DataTable();
         });
     </script>
 

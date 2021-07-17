@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace DesafioTecnico
 {
     public class Startup
@@ -29,7 +30,8 @@ namespace DesafioTecnico
             services.AddDbContextPool<DocumentContext>(options => 
             options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
-            
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddControllersWithViews();
 
         }

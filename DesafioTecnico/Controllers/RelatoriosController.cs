@@ -82,8 +82,11 @@ namespace DesafioTecnico.Controllers
                 }
                 _context.Add(documento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["Mensagem"] = "sucesso";
+                return RedirectToAction(nameof(Create));
+               
             }
+            TempData["Mensagem"] = "erro";
             return View();
         }
 

@@ -70,3 +70,27 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Tabela Relatorio*/
+.table tr:hover {
+    cursor: pointer;
+}
+table.dataTable thead .sorting:hover {
+    background-color: whitesmoke;
+}
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-color: whitesmoke;
+}
+
+/* ArquivoValidator.js*/
+#file-error{
+    color:red;
+}
+
+/* Toastr.css*/
+
+#toast-container {
+margin:100px 40%;
+
+}

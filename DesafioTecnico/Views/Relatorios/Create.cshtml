@@ -3,7 +3,16 @@
 @{
     ViewData["Title"] = "Create";
 }
-<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+@section Styles
+{
+
+    <link href="~/css/toastr.css" rel="stylesheet" />
+}
+
+
+<span id="Mensagem" class="d-none">@TempData["Mensagem"]</span>
+
+
 
 <h1>Create</h1>
 
@@ -36,14 +45,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Arquivo" class="control-label "></label>
-                <input type="file" class="form-control" name="file" id="file" />
-                <span asp-validation-for="Arquivo" class="text-danger" ></span>
+                <input type="file" class="form-control-file" name="file" id="file" accept="application/pdf,
+                       application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                       application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                       data-msg-accept="Formato do aquivo não suportado" />
+                <span asp-validation-for="Arquivo" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
 </div>
 
@@ -62,36 +75,29 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <script src="~/js/toastr.js"></script>
+
+    <script src="~/js/arquivoValidator.js"></script>
+
     <script>
 
         $(document).ready(function () {
-            jQuery.validator.addMethod("filetype", function (value, element) {
-                var types = ['jpeg', 'jpg', 'pdf'],
-                    ext = value.replace(/.*[.]/, '').toLowerCase();
-
-                if (types.indexOf(ext) !== -1) {
-                    //$("#city_banner-error").html('');
-                    return true;
-                }
-                return false;
-            },
-                "Please select allowed file"
-            );
-            $('#myForm').validate({
-                rules:
-                {
-                    file:
-                    {
-                        filetype: true
-                    }
-                }
-            });
+            var mensagem = $('#Mensagem').text();
+            if (mensagem === "sucesso") {
+                toastr.success("Documento cadastrado com sucesso");
+            }
+            if (mensagem === "erro") {
+                toastr.error("Erro no cadastro , não foi possivel cadastrar o seu documento");
+            }
         });
+
 
 
     </script>
 
 
 
+  
 
 }

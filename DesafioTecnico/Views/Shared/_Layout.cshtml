@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - DesafioTecnico</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://use.fontawesome.com/5850fa343f.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
@@ -27,7 +29,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Demo" asp-action="Teste">Demo</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Relatorios" asp-action="Create">Cadastro</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Relatorios" asp-action="Index">Relatorios</a>

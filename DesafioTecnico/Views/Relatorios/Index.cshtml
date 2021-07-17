@@ -4,83 +4,74 @@
 @section Styles
 {
 
-    <link href=https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css />
-
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/site.js"></script>
 }
 
-<div class="container">
 
 
 
-    <table id="example" class="table ">
-        <thead>
+
+<table id="tabela" class="table table-bordered table-hover table-sm">
+    <thead class="text-primary  ">
+        <tr class="text-center">
+
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Processo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Titulo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Codigo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Processo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Categoria)
-                </th>
 
-                <th></th>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Processo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+
+                <td>
+
+                    <form asp-action="DownloadDocument">
+                        <input type="hidden" iad="id" name="id" value="@item.Codigo">
+                        <input type="submit" class="btn btn-primary" value="Download">
+
+                    </form>
+
+                    <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
+        }
+    </tbody>
+</table>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titulo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Processo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria)
-                    </td>
-
-                    <td>
-
-                        <form asp-action="DownloadDocument">
-                            <input type="hidden" iad="id" name="id" value="@item.Codigo">
-                            <input type="submit" class="btn btn-primary" value="Download">
-
-                        </form>
-
-
-
-
-                        <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-</div>
-</div>
 
 
 @section Scripts
 {
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
 
 }

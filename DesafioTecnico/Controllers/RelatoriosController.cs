@@ -9,22 +9,27 @@ using DesafioTecnico.Data;
 using DesafioTecnico.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using DesafioTecnico.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DesafioTecnico.Controllers
 {
     public class RelatoriosController : Controller
     {
         private readonly DocumentContext _context;
+        private readonly IRelatorioService _service;
 
-        public RelatoriosController(DocumentContext context)
+        public RelatoriosController(DocumentContext context , IRelatorioService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Relatorios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Documentos.OrderBy(c => c.Titulo).AsNoTracking().ToListAsync()); ;
+            var documentos = await _service.GetRelatorios();
+            return View(documentos); ;
         }
 
         // GET: Relatorios/Details/5
@@ -75,13 +80,7 @@ namespace DesafioTecnico.Controllers
                     NomeArquivo = nome
 
                 };
-                              using (var target = new MemoryStream())
-                {
-                    file.CopyTo(target);
-                    documento.Arquivo = target.ToArray();
-                }
-                _context.Add(documento);
-                await _context.SaveChangesAsync();
+                await _service.PostRelatorio(documento, file);
                 TempData["Mensagem"] = "sucesso";
                 return RedirectToAction(nameof(Create));
                
@@ -173,19 +172,24 @@ namespace DesafioTecnico.Controllers
         [HttpPost]
         public async Task<IActionResult> DownloadDocument([FromForm] int id)
         {
-           
-                try
-                {
-                
 
-                    var myFile = await _context.Documentos.SingleOrDefaultAsync(x => x.Codigo ==id);
-                    
-                    if (myFile != null)
+    
+                
+            try
+                {
+
+
+                var documento = await _service.DownloadRelatorio(id);
+              
+                
+                               
+                    if (documento != null)
                     {
-                        byte[] fileBytes = myFile.Arquivo;
-                        return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, myFile.NomeArquivo);
+                        byte[] fileBytes = documento.Arquivo;
+                        return File(fileBytes, Application.Octet, documento.NomeArquivo);
                     }
-                }
+                } 
+
                 catch
                 {
                 }

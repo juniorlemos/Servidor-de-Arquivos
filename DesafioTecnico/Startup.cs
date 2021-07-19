@@ -1,4 +1,7 @@
 using DesafioTecnico.Data;
+using DesafioTecnico.Models;
+using DesafioTecnico.Repository;
+using DesafioTecnico.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,10 @@ namespace DesafioTecnico
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<IRelatorioService, RelatorioService>();
+            services.AddScoped<IRelatorioRepository<Documento>, RelatorioRepository>();
+
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<DocumentContext>(options => 
             options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));

@@ -13,7 +13,7 @@
 
 
 <table id="tabela" class="table table-bordered table-hover table-sm">
-    <thead class="text-primary  ">
+    <thead class="text-success  ">
         <tr class="text-center">
 
             <th>
@@ -28,6 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
             </th>
+           
 
             <th></th>
         </tr>
@@ -55,13 +56,11 @@
 
                     <form asp-action="DownloadDocument">
                         <input type="hidden" iad="id" name="id" value="@item.Codigo">
-                        <input type="submit" class="btn btn-primary" value="Download">
+                        <input type="submit" class="btn btn-success" value="Download">
 
                     </form>
 
-                    <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
+                   
                 </td>
             </tr>
         }

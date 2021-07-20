@@ -11,6 +11,7 @@
 
 
 <span id="Mensagem" class="d-none">@TempData["Mensagem"]</span>
+<h1>@TempData["valor"]</h1>
 
 
 
@@ -18,6 +19,9 @@
 
 <h4>Documento</h4>
 <hr />
+
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post" enctype="multipart/form-data" id="myForm">
@@ -28,6 +32,7 @@
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
@@ -84,12 +89,19 @@
 
         $(document).ready(function () {
             var mensagem = $('#Mensagem').text();
-            if (mensagem === "sucesso") {
-                toastr.success("Documento cadastrado com sucesso");
-            }
-            if (mensagem === "erro") {
-                toastr.error("Erro no cadastro , não foi possivel cadastrar o seu documento");
-            }
+
+            switch (mensagem) {
+                case "sucesso":
+                    toastr.success("Documento cadastrado com sucesso");
+                    break;
+                case "erro":
+                    toastr.error("Erro no cadastro , não foi possivel cadastrar o seu documento ,tente novamente");
+                    break;
+                case "erroCodigo":
+                    toastr.error("Erro no cadastro ,este código já está sendo utilizado. Por favor tente outro código");
+                    break;
+                default:
+            }  
         });
 
 
@@ -98,6 +110,5 @@
 
 
 
-  
 
 }

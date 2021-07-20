@@ -1,6 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    --verde: #02807b;
+    --branco: #ffffff
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -64,28 +69,54 @@ body {
   
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: var(--verde);
+   
 }
 
-/* Tabela Relatorio*/
-.table tr:hover {
+
+.navbar {
+    background-color: var(--verde);
+}
+
+
+.nav-item a:hover {
+    color: #32CD32 !important;
+}
+
+    /* Tabela Relatorio*/
+    .table tr:hover {
     cursor: pointer;
 }
 table.dataTable thead .sorting:hover {
-    background-color: whitesmoke;
+    background-color: var(--verde);
+    color: var(--branco);
 }
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc {
-    background-color: whitesmoke;
+    background-color: var(--verde);
+    color :var(--branco);
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--verde);
+    
 }
 
+#tabela_filter .fas  {
+    color:var(--verde);
+    
+}
+
+
 /* ArquivoValidator.js*/
-#file-error{
-    color:red;
+#file-error {
+    color: red;
 }
 
 /* Toastr.css*/

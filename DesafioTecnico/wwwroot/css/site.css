@@ -3,7 +3,8 @@ for details on configuring this project to bundle and minify static web assets. 
 
 :root {
     --verde: #02807b;
-    --branco: #ffffff
+    --branco: #ffffff ;
+    --verdeClaro: #32CD32;
 }
 
 a.navbar-brand {
@@ -122,6 +123,12 @@ table.dataTable thead .sorting_desc {
 /* Toastr.css*/
 
 #toast-container {
-margin:100px 40%;
+margin:60px 40%;
 
+}
+
+/* Formularios */
+
+.coresLaterias {
+    background-color: #F5F5F5;
 }

@@ -27,8 +27,8 @@ namespace DesafioTecnico.Controllers
         }
 
 
-        // GET: Relatorios/Create
-        public IActionResult Create()
+        // GET: Relatorios/Cadastro
+        public IActionResult Cadastro()
         {
             return View();
         }
@@ -37,7 +37,7 @@ namespace DesafioTecnico.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-              public async Task<IActionResult> Create([FromForm][Bind("Codigo,Titulo,Processo,Categoria")]Documento documento, IFormFile file)
+              public async Task<IActionResult> Cadastro([FromForm][Bind("Codigo,Titulo,Processo,Categoria")]Documento documento, IFormFile file)
         {
 
             if (ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace DesafioTecnico.Controllers
                 {
                     await _service.PostRelatorio(documento, file);
                     TempData["Mensagem"] = "sucesso";
-                    return RedirectToAction(nameof(Create));                  
+                    return RedirectToAction(nameof(Cadastro));                  
                 }
                 else
                 {

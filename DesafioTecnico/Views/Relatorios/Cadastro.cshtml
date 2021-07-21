@@ -1,7 +1,7 @@
 ﻿@model DesafioTecnico.Models.Documento
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastro";
 }
 @section Styles
 {
@@ -13,21 +13,21 @@
 <span id="Mensagem" class="d-none">@TempData["Mensagem"]</span>
 <h1>@TempData["valor"]</h1>
 
+<h1 class="text-success">Cadastro</h1>
 
-
-<h1>Create</h1>
-
-<h4>Documento</h4>
-<hr />
-
-
+<hr/>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 ">
+
+    </div>
+
+    <div class="col-md-4 coresLaterias p-md-2">
+        
         <form asp-action="Create" method="post" enctype="multipart/form-data" id="myForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group  ">
+            <div class="form-group ">
                 <label asp-for="Codigo" class="control-label"></label>
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
@@ -51,28 +51,37 @@
             <div class="form-group">
                 <label asp-for="Arquivo" class="control-label "></label>
                 <input type="file" class="form-control-file" name="file" id="file" accept="application/pdf,
-                       application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-                       application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                       application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                       application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                       application/xls ,application/x-xls "
                        data-msg-accept="Formato do aquivo não suportado" />
                 <span asp-validation-for="Arquivo" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+               
+            </div>           
+            <div class="form-group form-row ">
+                <input type="submit" value="Salvar" class="btn btn-outline-success col " />
+                <a class="btn btn-outline-success col" asp-action="Index">Ir para Relatorios</a>
+            </div>           
+
         </form>
+                     
+    </div>
+        
+    </div>
+
+    <div class="col-md-4 ">
 
     </div>
-</div>
 
 
 
 
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -82,33 +91,7 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
     <script src="~/js/toastr.js"></script>
-
     <script src="~/js/arquivoValidator.js"></script>
-
-    <script>
-
-        $(document).ready(function () {
-            var mensagem = $('#Mensagem').text();
-
-            switch (mensagem) {
-                case "sucesso":
-                    toastr.success("Documento cadastrado com sucesso");
-                    break;
-                case "erro":
-                    toastr.error("Erro no cadastro , não foi possivel cadastrar o seu documento ,tente novamente");
-                    break;
-                case "erroCodigo":
-                    toastr.error("Erro no cadastro ,este código já está sendo utilizado. Por favor tente outro código");
-                    break;
-                default:
-            }  
-        });
-
-
-
-    </script>
-
-
-
+    <script src="~/js/toastrMensagem.js"></script>
 
 }

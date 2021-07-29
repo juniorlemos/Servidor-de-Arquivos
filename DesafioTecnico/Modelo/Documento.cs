@@ -7,7 +7,6 @@ namespace DesafioTecnico.Models
     public class Documento 
     {
         [Key]
-
         [Display(Name = "Código")]
         [Required(ErrorMessage = "Este campo não pode ficar em branco")]
         [Range(1, 2147483647, ErrorMessage = "Por favor escolha um número entre 1 a 2147483647 ")]
@@ -24,6 +23,7 @@ namespace DesafioTecnico.Models
         [StringLength(30, MinimumLength = 4, ErrorMessage =
             "O Processo deve ter no mínimo 4 e no máximo 30 caracteres.")]
         public string Processo { get; set; }
+
         [Required(ErrorMessage = "Este campo não pode ficar em branco")]
         [StringLength(30, MinimumLength = 4, ErrorMessage =
             "A Categoria deve ter no mínimo 4 e no máximo 30 caracteres.")]

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioTecnico.Migrations
 {
-    [DbContext(typeof(DocumentContext))]
+    [DbContext(typeof(DocumentoContexto))]
     [Migration("20210720040313_bdRelator")]
     partial class bdRelator
     {

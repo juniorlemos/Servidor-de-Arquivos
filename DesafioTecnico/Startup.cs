@@ -26,10 +26,10 @@ namespace DesafioTecnico
         {
 
             services.AddScoped<IRelatorioService, RelatorioService>();
-            services.AddScoped<IRelatorioRepository<Documento>, RelatorioRepository>();
+            services.AddScoped<IRelatorioRepositorio<Documento>, RelatorioRepositorio>();
 
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<DocumentContext>(options => 
+            services.AddDbContextPool<DocumentoContexto>(options => 
             options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddDatabaseDeveloperPageExceptionFilter();

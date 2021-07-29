@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioTecnico.Migrations
 {
-    [DbContext(typeof(DocumentContext))]
+    [DbContext(typeof(DocumentoContexto))]
     partial class DocumentContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

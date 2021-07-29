@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioTecnico.Migrations
 {
-    [DbContext(typeof(DocumentContext))]
+    [DbContext(typeof(DocumentoContexto))]
     [Migration("20210707021618_InitialCreate")]
     partial class InitialCreate
     {

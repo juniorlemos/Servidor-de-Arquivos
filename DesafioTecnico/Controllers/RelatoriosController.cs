@@ -18,10 +18,10 @@ namespace DesafioTecnico.Controllers
         }
 
         // GET: Relatorios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> TabelaDocumentos()
         {
 
-            var documentos = await _service.GetRelatorios();
+            var documentos = await _service.ObterTodosDocumentos();
             return View(documentos); ;
 
         }
@@ -37,16 +37,17 @@ namespace DesafioTecnico.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-              public async Task<IActionResult> Cadastro([FromForm][Bind("Codigo,Titulo,Processo,Categoria")]Documento documento, IFormFile file)
+              public async Task<IActionResult> Cadastro([FromForm][Bind("Codigo,Titulo,Processo,Categoria")]Documento documento, IFormFile arquivo)
         {
 
             if (ModelState.IsValid)
             {               
 
-                documento.NomeArquivo = file.FileName; ;
-                if (!DocumentoExists(documento.Codigo))
+                documento.NomeArquivo = arquivo.FileName; 
+
+                if (!ConferirDocumento(documento.Codigo))
                 {
-                    await _service.PostRelatorio(documento, file);
+                    await _service.InserirDocumento(documento, arquivo);
                     TempData["Mensagem"] = "sucesso";
                     return RedirectToAction(nameof(Cadastro));                  
                 }
@@ -65,10 +66,10 @@ namespace DesafioTecnico.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DownloadDocument([FromForm] int id)
+        public async Task<IActionResult> BaixarDocumento([FromForm] int id)
         {
 
-            var documento = await _service.DownloadRelatorio(id);
+            var documento = await _service.ObterDocumento(id);
 
 
             if (documento != null)
@@ -81,7 +82,7 @@ namespace DesafioTecnico.Controllers
         }
 
 
-        private bool DocumentoExists(int id)
+        private bool ConferirDocumento(int id)
         {
             return _service.DocumentoExiste(id);
         }

@@ -7,9 +7,9 @@ namespace DesafioTecnico.Services
 {
     public interface IRelatorioService
     {
-        Task<List<Documento>>GetRelatorios();
-        Task PostRelatorio(Documento documento, IFormFile file);
-        Task <Documento>DownloadRelatorio(int id);
+        Task<List<Documento>> ObterTodosDocumentos();
+        Task InserirDocumento(Documento documento, IFormFile file);
+        Task <Documento> ObterDocumento(int id);
         bool DocumentoExiste(int id);
        
 }
